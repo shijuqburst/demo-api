@@ -1,0 +1,22 @@
+
+class OperaConnector < BaseConnector
+
+   def initialize(api_req_data)
+       super(api_req_data)
+
+   end
+
+   def checkin()
+       puts "---------------------- OPERA CONNECTOR REACHED WITH API REQUEST DATA ----------------------",@api_req_data.to_yaml
+       json_data ="OPERA checkin connected"	
+       return json_data
+   end
+
+   def checkout
+         # Checkout api format for Opera
+   end
+
+end
+
+
+

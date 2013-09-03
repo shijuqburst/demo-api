@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  application_type: 
+  application_version: 
+  api_key: 
+  expiry_date: 2013-09-02 14:05:29
+
+two:
+  application_type: 
+  application_version: 
+  api_key: 
+  expiry_date: 2013-09-02 14:05:29

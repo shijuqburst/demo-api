@@ -1,0 +1,42 @@
+
+module Api
+ module V1
+
+class PmsConnectEngineController < ApplicationController
+  include JsonValidator
+  before_filter :validate_json_data, :only=>[:checkin]
+
+  def initialize
+
+  end
+
+  def checkin
+     puts "-----------------------------   PMS CONNECT ENGINE CHECKIN API -----------------------"
+     api_req_data = ActiveSupport::JSON.decode(request.body)
+     puts "-----------------------------   PMS CONNECT ENGINE CHECKIN API - REQUEST JSON DATA-----------------------",api_req_data["data"]
+     pms_connector_class = find_pms_for_hotel(api_req_data["data"]["hotel_chain"])
+     pms_connector = pms_connector_class.new(api_req_data)
+     json_response1 = pms_connector.checkin
+     render :json => json_response1 	
+  end
+
+  def checkout
+    puts "-----------------------------   PMS CONNECT ENGINE CHECKOUT API -----------------------"
+    render :json => "Checkout API"
+  end
+
+  private
+  def find_pms_for_hotel(hotel_chain)
+    puts "---------------------------- FINDING PMS FOR JSON HOTEL CHAIN CODE RECEIVED -----------------------",hotel_chain
+    @pms_information = PmsInformation.by_hotel_chain(hotel_chain).first
+    puts "--------------------- HOTEL CHAIN FOUND -------------------",@pms_information.hotel_chains.to_yaml
+    pms_connector = Object.const_get @pms_information.pms_type.pms_connector_class
+    return pms_connector
+
+  end
+
+ end
+
+
+end
+end
